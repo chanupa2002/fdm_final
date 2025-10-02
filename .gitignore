@@ -1,0 +1,30 @@
+# Root-level ignores for a React + Python ML project
+
+# Node/React build and deps (frontend has its own, but safe to include)
+frontend/node_modules/
+frontend/build/
+
+# Python
+backend/__pycache__/
+backend/venv/
+backend/*.pyc
+
+# Model / large binaries (do NOT commit your large model file here unless using LFS)
+*.pkl
+*.h5
+*.pt
+models/
+
+# Environment and secrets
+*.env
+.env
+
+# IDEs / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
