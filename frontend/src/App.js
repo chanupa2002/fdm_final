@@ -98,7 +98,7 @@ function App() {
       setLoading(true);
       setPrediction(null);
 
-      const res = await fetch("https://bookish-space-adventure-v6v5w7qp56r62xq7x-8000.app.github.dev/predict", {
+      const res = await fetch("https://fdm-final.onrender.com/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
