@@ -109,6 +109,11 @@ def preprocess_input(data: UserInput):
     df["Profession"] = df["Profession"].map({0: 1, 1: 0})
     return df
 
+@app.get("/")
+def root():
+    return {"message": "Depression Prediction API is live!"}
+
+
 # -----------------------------
 # Prediction route
 # -----------------------------
