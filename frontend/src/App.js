@@ -196,38 +196,51 @@ Family History of Mental Illness: ${formData.familyHistory}
             <h2>Terms & Agreement</h2>
             <div className="agreement-text">
               <p>
-                Welcome to the Student Depression Prediction System. Please read
-                this agreement carefully before using the application.
+                Welcome to the <strong>Student Depression Prediction System</strong>.  
+                Before you continue, please take a moment to read this agreement carefully.
               </p>
+            
               <p>
-                <strong>1. Purpose:</strong> This tool is designed to provide
-                general insights and does not replace professional medical
-                advice.
+                <strong>1. Data Privacy & Security:</strong>  
+                We want to assure you that any data you provide is handled with the highest 
+                level of care. Your information is used <em>only</em> for generating insights 
+                and supporting you—it is never sold or shared with third parties.
               </p>
+            
               <p>
-                <strong>2. Data Usage:</strong> The information you provide is
-                processed only for prediction purposes and is not shared with
-                third parties.
+                <strong>2. Not a Medical Diagnosis:</strong>  
+                The results provided by this tool do not confirm whether you have depression 
+                or not. This system is <em>not a replacement for medical advice</em> and should 
+                not be taken too seriously as a doctor’s diagnosis. If you have concerns 
+                about your mental health, please consult a qualified healthcare professional.
               </p>
+            
               <p>
-                <strong>3. Limitations:</strong> Results are not a confirmed
-                medical diagnosis. Always consult a healthcare professional for
-                medical advice.
+                <strong>3. Helpline Submissions:</strong>  
+                If you choose to submit your details to the helpline, your information will 
+                be securely forwarded to us through Gmail. This means Google’s data handling 
+                and privacy regulations apply as part of this process. In simple terms: your 
+                data is protected under Google’s security and privacy framework.
               </p>
+            
               <p>
-                <strong>4. Consent:</strong> By clicking "Agree", you consent to
-                the terms of use and acknowledge that you are using this system
-                voluntarily.
+                <strong>4. Counselor Access:</strong>  
+                Only verified counselors within our organization can access your submitted 
+                data. All access is protected with encrypted credentials, ensuring that your 
+                information is viewed strictly for the purpose of providing support and guidance.
               </p>
+            
               <p>
-                Dummy text filler: Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Praesent sit amet augue nec lacus pulvinar
-                dictum. Curabitur vitae nulla nec justo fermentum ultrices.
+                <strong>5. Consent:</strong>  
+                By clicking "Agree & Continue", you confirm that you understand these terms 
+                and you are choosing to use this system voluntarily.
               </p>
             </div>
+            
             <button className="btn" onClick={() => setAgreed(true)}>
               Agree & Continue
             </button>
+                
           </div>
         </div>
       )}
