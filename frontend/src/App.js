@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import emailjs from "emailjs-com"; // npm install emailjs-com
 import "./App.css";
 
-// Reusable rating bar with selectable balls
+// ⭐ Reusable rating bar with selectable balls
 const RatingBar = ({ name, value, onChange, max = 5, disabled = false }) => {
   return (
     <div className={`rating-bar ${disabled ? "disabled" : ""}`}>
@@ -26,6 +27,7 @@ const RatingBar = ({ name, value, onChange, max = 5, disabled = false }) => {
 };
 
 function App() {
+  // Main survey form data
   const [formData, setFormData] = useState({
     gender: "",
     age: "",
@@ -48,10 +50,25 @@ function App() {
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Popup help form
+  const [showPopup, setShowPopup] = useState(false);
+  const [helpForm, setHelpForm] = useState({
+    name: "",
+    email: "",
+    contact: "",
+  });
+
+  // Handle survey changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Handle popup help form changes
+  const handleHelpChange = (e) => {
+    setHelpForm({ ...helpForm, [e.target.name]: e.target.value });
+  };
+
+  // Submit survey for prediction
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -92,18 +109,18 @@ function App() {
       familyHistory: formData.familyHistory === "Yes" ? 1 : 0,
     };
 
-    console.log("Sending to API /api/predict (POST):", payload);
+    console.log("Sending to API /predict:", payload);
 
     try {
       setLoading(true);
       setPrediction(null);
 
-      const res = await fetch("https://fdm-final.onrender.com/predict", {
+      // ✅ Local backend URL
+      const res = await fetch("http://127.0.0.1:8000/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
 
       if (!res.ok) {
         throw new Error("API request failed");
@@ -119,13 +136,65 @@ function App() {
     }
   };
 
+  // Send EmailJS request
+  const sendHelpEmail = (e) => {
+    e.preventDefault();
+
+    const depressionDetails = `
+Gender: ${formData.gender}
+Age: ${formData.age}
+Job Status: ${formData.jobStatus}
+Academic Pressure: ${formData.academicPressure}
+Work Pressure: ${formData.workPressure}
+CGPA: ${formData.cgpa} / ${formData.outOf}
+Study Satisfaction: ${formData.studySatisfaction}
+Job Satisfaction: ${formData.jobSatisfaction}
+Sleep Duration: ${formData.sleepDuration}
+Dietary Habits: ${formData.dietaryHabits}
+Degree: ${formData.degree}
+Suicidal Thoughts: ${formData.suicidalThoughts}
+Work/Study Hours: ${formData.workHours}
+Financial Stress: ${formData.financialStress}
+Family History of Mental Illness: ${formData.familyHistory}
+`;
+
+    const emailPayload = {
+      user_name: helpForm.name,
+      user_email: helpForm.email,
+      user_contact: helpForm.contact,
+
+      depression_details: depressionDetails,
+    };
+
+    emailjs
+      .send(
+        "service_3c9oowh",
+        "template_0n5lcfh",
+        emailPayload,
+        "pN1gwGsoP8_4vLJxD"
+      )
+      .then(
+        () => {
+          alert("Helpline request sent successfully!");
+          setShowPopup(false);
+          setHelpForm({ name: "", email: "", contact: "" });
+        },
+        (error) => {
+          console.error(error.text);
+          alert("Failed to send helpline request.");
+        }
+      );
+  };
+
   return (
     <div className="page">
       <div className="container">
         <h1 className="title">Student Depression Prediction</h1>
         <p className="subtitle">Please answer the questions honestly.</p>
 
+        {/* Survey Form */}
         <form onSubmit={handleSubmit} className="card">
+          {/* Gender */}
           <label>
             Gender:
             <select
@@ -140,6 +209,7 @@ function App() {
             </select>
           </label>
 
+          {/* Age */}
           <label>
             Age:
             <input
@@ -153,6 +223,7 @@ function App() {
             />
           </label>
 
+          {/* Job Status */}
           <label>
             Doing a Job?
             <select
@@ -167,6 +238,7 @@ function App() {
             </select>
           </label>
 
+          {/* Academic Pressure */}
           <label>
             Academic Pressure:
             <RatingBar
@@ -176,6 +248,7 @@ function App() {
             />
           </label>
 
+          {/* Work Pressure */}
           <label>
             Work Pressure:
             <RatingBar
@@ -186,7 +259,7 @@ function App() {
             />
           </label>
 
-          {/* CGPA + OutOf same row */}
+          {/* CGPA + OutOf */}
           <div className="row">
             <label className="half">
               CGPA:
@@ -212,6 +285,7 @@ function App() {
             </label>
           </div>
 
+          {/* Study Satisfaction */}
           <label>
             Study Satisfaction:
             <RatingBar
@@ -221,6 +295,7 @@ function App() {
             />
           </label>
 
+          {/* Job Satisfaction */}
           <label>
             Job Satisfaction:
             <RatingBar
@@ -233,6 +308,7 @@ function App() {
             />
           </label>
 
+          {/* Sleep Duration */}
           <label>
             Sleep Duration:
             <select
@@ -249,6 +325,7 @@ function App() {
             </select>
           </label>
 
+          {/* Dietary Habits */}
           <label>
             Dietary Habits:
             <select
@@ -264,6 +341,7 @@ function App() {
             </select>
           </label>
 
+          {/* Degree */}
           <label>
             Degree:
             <select
@@ -304,6 +382,7 @@ function App() {
             </select>
           </label>
 
+          {/* Suicidal Thoughts */}
           <label>
             Suicidal Thoughts:
             <select
@@ -318,6 +397,7 @@ function App() {
             </select>
           </label>
 
+          {/* Work/Study Hours */}
           <label>
             Work/Study Hours:
             <select
@@ -334,6 +414,7 @@ function App() {
             </select>
           </label>
 
+          {/* Financial Stress */}
           <label>
             Financial Stress:
             <RatingBar
@@ -343,6 +424,7 @@ function App() {
             />
           </label>
 
+          {/* Family History */}
           <label>
             Family History of Mental Illness:
             <select
@@ -362,15 +444,75 @@ function App() {
           </button>
         </form>
 
+        {/* Prediction Result */}
         {prediction !== null && (
           <div className="result">
-            <h3>Prediction Result:</h3>
-            <p>{prediction}</p>
             <p>
               {prediction === 1
-                ? "The student may have depression."
-                : "The student does not show signs of depression."}
+                ? "⚠️ The student may have depression."
+                : "✅ The student does not show signs of depression."}
             </p>
+
+            {/* Show Get Help if risk detected */}
+            {prediction === 1 && (
+              <button
+                className="btn help-btn"
+                onClick={() => setShowPopup(true)}
+              >
+                Get Help
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Popup Help Form */}
+        {showPopup && (
+          <div className="popup">
+            <div className="popup-content">
+              <h2>Helpline Contact Form</h2>
+              <form onSubmit={sendHelpEmail}>
+                <label>
+                  Name:
+                  <input
+                    type="text"
+                    name="name"
+                    value={helpForm.name}
+                    onChange={handleHelpChange}
+                    required
+                  />
+                </label>
+                <label>
+                  Email:
+                  <input
+                    type="email"
+                    name="email"
+                    value={helpForm.email}
+                    onChange={handleHelpChange}
+                    required
+                  />
+                </label>
+                <label>
+                  Contact Number:
+                  <input
+                    type="text"
+                    name="contact"
+                    value={helpForm.contact}
+                    onChange={handleHelpChange}
+                    required
+                  />
+                </label>
+                <button type="submit" className="btn">
+                  Send Request
+                </button>
+                <button
+                  type="button"
+                  className="btn cancel"
+                  onClick={() => setShowPopup(false)}
+                >
+                  Cancel
+                </button>
+              </form>
+            </div>
           </div>
         )}
       </div>
