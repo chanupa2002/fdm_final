@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import emailjs from "emailjs-com"; // npm install emailjs-com
 import "./App.css";
 
-// ⭐ Reusable rating bar with selectable balls
 const RatingBar = ({ name, value, onChange, max = 5, disabled = false }) => {
   return (
     <div className={`rating-bar ${disabled ? "disabled" : ""}`}>
