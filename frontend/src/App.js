@@ -80,6 +80,23 @@ function App() {
       return;
     }
 
+      // ✅ Validate CGPA and OutOf
+  const cgpaValue = parseFloat(formData.cgpa);
+  const outOfValue = parseFloat(formData.outOf);
+
+  if (isNaN(cgpaValue) || isNaN(outOfValue)) {
+    alert("Please enter valid numbers for CGPA and Out Of");
+    return;
+  }
+  if (cgpaValue <= 0 || outOfValue <= 0) {
+    alert("CGPA and Out Of must be greater than 0");
+    return;
+  }
+  if (cgpaValue > outOfValue) {
+    alert("CGPA cannot be greater than Out Of value");
+    return;
+  }
+
     let normalizedCGPA = null;
     if (formData.cgpa && formData.outOf) {
       normalizedCGPA = parseFloat(formData.cgpa) / parseFloat(formData.outOf);
