@@ -552,8 +552,7 @@ Family History of Mental Illness: ${formData.familyHistory}
                       type="text"
                       name="name"
                       value={helpForm.name}
-                      onChange={handleHelpChange}
-                      required
+                      onChange={handleHelpChange} 
                     />
                   </label>
                   <label>
@@ -563,7 +562,6 @@ Family History of Mental Illness: ${formData.familyHistory}
                       name="email"
                       value={helpForm.email}
                       onChange={handleHelpChange}
-                      required
                     />
                   </label>
                   <label>
