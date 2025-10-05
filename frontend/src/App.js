@@ -524,8 +524,8 @@ Family History of Mental Illness: ${formData.familyHistory}
             <div className="result">
               <p>
                 {prediction === 1
-                  ? "⚠️ The student may have depression."
-                  : "✅ The student does not show signs of depression."}
+                  ? "⚠️ You may be showing some signs of depression. It might help to talk to a mental health professional."
+                  : "✅ No significant signs of depression were detected. Stay mindful and prioritize your happiness."}
               </p>
 
               {/* Show Get Help if risk detected */}
